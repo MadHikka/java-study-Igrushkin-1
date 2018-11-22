@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class Main {
-	
-	public static void method(String text, ArrayList<String> WordsArgs) {
+
+	public static void method(String text, ArrayList<String> WordsArgs, boolean reg) {
 		Date time = new Date();
 		long ttime = time.getTime();
 		System.out.println(ttime);
@@ -16,19 +16,32 @@ public class Main {
 			int quant = 0;
 
 			while (wordsIter < words.length) {
-				if (words[wordsIter].equals(WordsArgs.get(argIter)))
-					quant++;
+				if (reg) {
+					if (words[wordsIter].equals(WordsArgs.get(argIter)))
+						quant++;
+				} else {
+					if (words[wordsIter].equalsIgnoreCase(WordsArgs.get(argIter)))
+						quant++;
+				}
+
 				wordsIter++;
 			}
 			System.out.println((argIter + 1) + "." + WordsArgs.get(argIter) + ":" + quant);
 			argIter++;
 		}
+		
 		System.out.println(time.getTime());
+	}
+	
+	public static void method(String text, ArrayList<String> WordsArgs) {
+		method(text,WordsArgs,true);
 	}
 
 	public static void main(String args[]) {
 		Scanner scan = new Scanner(System.in);
-		ArrayList <String> WordsArgs = new ArrayList<String>();
+		ArrayList<String> WordsArgs = new ArrayList<String>();
+		System.out.println("Enable case-sensitive?(1 - yes, 0 - no)");
+		boolean reg = scan.nextBoolean();
 
 		System.out.println("Input text");
 
@@ -46,7 +59,7 @@ public class Main {
 
 		} while (!false);
 
-		method(text, WordsArgs);
+		method(text, WordsArgs, reg);
 		scan.close();
 	}
 
